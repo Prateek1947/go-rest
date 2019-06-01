@@ -3,8 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
+	"text/template"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -52,4 +55,41 @@ func getMovie(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(movie)
 	// }
 	// Where(User{Name: "jinzhu"})
+}
+func parseForm(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Helll")
+	r.ParseForm()
+	actors := r.Form["actor"]
+	sources := r.Form["source"]
+	values := r.Form["value"]
+
+	// movie=Movie{Actors:Actors{name:actors}}
+	var actorsArr []Actor
+	var ratings []Rating
+	for _, act := range actors {
+		actorsArr = append(actorsArr, Actor{Name: act})
+	}
+	for i, value := range values {
+		ratings = append(ratings, Rating{
+			Source: sources[i],
+			Value:  value,
+		})
+	}
+	_, err := time.Parse("2006-01-02T15:04:05.000Z", r.FormValue("release")+"T11:45:26.371Z")
+	if err != nil {
+		log.Fatal(err)
+	}
+	movie = Movie{
+		Actors:  actorsArr,
+		Rated:   r.FormValue("rated"),
+		Ratings: ratings,
+		Release: time.Now(),
+		Title:   r.FormValue("title"),
+		Year:    r.FormValue("year"),
+	}
+	db.Create(&movie)
+}
+func uploadForm(w http.ResponseWriter, r *http.Request) {
+	temp := template.Must(template.ParseFiles("../templates/form.html"))
+	temp.Execute(w, nil)
 }

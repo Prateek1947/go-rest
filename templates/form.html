@@ -1,0 +1,60 @@
+<script>
+    var j = 0;
+    var i = 0;
+    function addRatings() {
+        j++;
+        var container = document.getElementById("rating_container")
+        var x = document.createElement("input")
+        x.setAttribute("type", "text")
+        x.setAttribute("placeholder", "Source" + j)
+        x.setAttribute("name", "source")
+        var label = document.createElement("label");
+        label.setAttribute("for", "source")
+        label.textContent = "Source"
+        container.appendChild(label)
+        container.appendChild(x)
+        container.appendChild(document.createElement("br"))
+        var y = document.createElement("input")
+        y.setAttribute("name", "value")
+        y.setAttribute("placeholder", "Value" + j)
+        var label2 = document.createElement("label");
+        label2.textContent = "Value"
+        label2.setAttribute("for", "value")
+        container.appendChild(label2)
+        container.appendChild(y)
+        container.appendChild(document.createElement("br"))
+    }
+    function addActors() {
+        i++;
+        var x = document.createElement("input")
+        x.setAttribute("type", "text")
+        x.setAttribute("placeholder", "Actor" + i)
+        x.setAttribute("name", "actor")
+        var container = document.getElementById("actor_container")
+        container.appendChild(x)
+        container.appendChild(document.createElement("br"))
+    }
+</script>
+<form action="" method="post">
+    <label for="title">Title</label>
+    <input type="text" name="title" placeholder="Title"><br><br>
+    <label for="year">Year</label>
+    <input type="text" name="year" placeholder="Year"><br><br>
+    <label for="rated">Rated</label>
+    <input type="text" name="rated" placeholder="Rated"><br><br>
+    <label for="release">Release</label>
+    <input type="date" name="release"><br><br>
+    <label>Actors</label>
+    <!-- <input type="text" name="actors[]"><br><br> -->
+    <div id="actor_container" style="margin-left: 50px"></div>
+    <a onclick="addActors()" style="text-decoration: underline;cursor: pointer;margin-left: 50px">Add Actors</a><br>
+    <label>Ratings</label>
+    <div id="rating_container" style="margin-left: 50px"></div>
+    <a onclick="addRatings()" style="text-decoration: underline;cursor: pointer;margin-left: 50px">Add Ratings</a>
+    <!-- <input type="text" name="source"><br><br> -->
+    <!-- <input type="text" name="value"><br><br> -->
+    <div>
+        <br>
+        <button type="submit">Submit</button>
+    </div>
+</form>
