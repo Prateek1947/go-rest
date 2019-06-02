@@ -19,7 +19,7 @@ func main() {
 	r := mux.NewRouter().StrictSlash(false)
 	fs := http.FileServer(http.Dir("../media"))
 	r.PathPrefix("/media/").Handler(http.StripPrefix("/media/", fs))
-	r.HandleFunc("/movies/{something}", getAllMovies).Methods(http.MethodGet)
+	r.HandleFunc("/movies", getAllMovies).Methods(http.MethodGet)
 	r.HandleFunc("/movies/{id}", getMovie).Methods(http.MethodGet)
 	r.HandleFunc("/uploadMovies", uploadForm).Methods(http.MethodGet)
 	r.HandleFunc("/uploadMovies", parseForm).Methods(http.MethodPost)
