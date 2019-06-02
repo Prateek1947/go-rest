@@ -35,7 +35,7 @@
         container.appendChild(document.createElement("br"))
     }
 </script>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <label for="title">Title</label>
     <input type="text" name="title" placeholder="Title"><br><br>
     <label for="year">Year</label>
@@ -53,6 +53,9 @@
     <a onclick="addRatings()" style="text-decoration: underline;cursor: pointer;margin-left: 50px">Add Ratings</a>
     <!-- <input type="text" name="source"><br><br> -->
     <!-- <input type="text" name="value"><br><br> -->
+    <br><br>
+    <label for="poster">Poster</label>
+    <input type="file" name="poster" accept="image/*">
     <div>
         <br>
         <button type="submit">Submit</button>
