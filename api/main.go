@@ -16,8 +16,10 @@ var rating Rating
 var db *gorm.DB
 
 func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/movies", getAllMovies).Methods(http.MethodGet)
+	r := mux.NewRouter().StrictSlash(false)
+	fs := http.FileServer(http.Dir("../media"))
+	r.PathPrefix("/media/").Handler(http.StripPrefix("/media/", fs))
+	r.HandleFunc("/movies/{something}", getAllMovies).Methods(http.MethodGet)
 	r.HandleFunc("/movies/{id}", getMovie).Methods(http.MethodGet)
 	r.HandleFunc("/uploadMovies", uploadForm).Methods(http.MethodGet)
 	r.HandleFunc("/uploadMovies", parseForm).Methods(http.MethodPost)
@@ -38,7 +40,7 @@ func init() {
 		db.CreateTable(&movie)
 		db.CreateTable(&actor)
 	}
-	
+
 	movie = Movie{Title: "xzxnjdjsflg",
 		Year:    "2017",
 		Rated:   "PG-13sdasf",
