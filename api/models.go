@@ -19,7 +19,7 @@ type Movie struct {
 	Rated     string    `json:"rated"`
 	PosterURI string    `json:"-"`
 	Release   time.Time `json:"release"`
-	Actors    []Actor   `json:"actors" gorm:"foreignkey:ActorID"`
+	Actors    []Actor   `json:"-" gorm:"foreignkey:ActorID"`
 	Ratings   []Rating  `json:"ratings" gorm:"foreignkey:RatingID"`
 }
 
