@@ -61,11 +61,14 @@ func parseForm(w http.ResponseWriter, r *http.Request) {
 	// http.Redirect(w, r, "/media/posters/", http.StatusPermanentRedirect)
 	fmt.Fprintf(w, "<h1>Thanks for your response</h1>")
 	r.ParseMultipartForm(45 << 20)
-	file, header, _ := r.FormFile("poster")
-	data, _ := ioutil.ReadAll(file)
-	fileName := header.Filename
-	sysfile, _ := os.Create("../media/posters/" + fileName)
-	sysfile.Write(data)
+	file, header, err := r.FormFile("poster")
+	var fileName string
+	if err == nil {
+		data, _ := ioutil.ReadAll(file)
+		fileName = header.Filename
+		sysfile, _ := os.Create("../media/posters/" + fileName)
+		sysfile.Write(data)
+	}
 	actors := r.Form["actor"]
 	sources := r.Form["source"]
 	values := r.Form["value"]
